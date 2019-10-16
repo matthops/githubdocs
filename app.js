@@ -32,10 +32,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handlers
@@ -43,23 +43,23 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
-        res.status(err.status || 500);
-        res.send({
-            message: err.message,
-            error: err
-        });
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.send({
+      message: err.message,
+      error: err
     });
+  });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.send({
-        message: err.message,
-        error: err
-    });
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.send({
+    message: err.message,
+    error: err
+  });
 });
 
 // setup db
@@ -68,16 +68,22 @@ db.loadDatabase();
 
 // get docs
 var options = {
-    url: 'https://api.github.com/repos/' + config.githubRepoOwner + '/' + config.githubRepoName + '/contents/' + config.githubRepoPath,
-    headers: {
-        'User-Agent': 'githubdocs'
-    }
+  url:
+    'https://api.github.com/repos/' +
+    config.githubRepoOwner +
+    '/' +
+    config.githubRepoName +
+    '/contents/' +
+    config.githubRepoPath,
+  headers: {
+    'User-Agent': 'githubdocs'
+  }
 };
 
 // setup lunr
-var lunrIndex = lunr(function (){
-    this.field('docTitle', {boost: 10});
-    this.field('docBody', {boost: 5});
+var lunrIndex = lunr(function() {
+  this.field('docTitle', { boost: 10 });
+  this.field('docBody', { boost: 5 });
 });
 
 // add some references to app
@@ -87,93 +93,127 @@ app.index = lunrIndex;
 
 // set the indexing to occur every Xmins - defaults to: 300000ms
 setInterval(function() {
-    indexDocs(options);
+  indexDocs(options);
 }, config.updateDocsInterval || 300000);
 
 // uglify assets
-uglify(function(){
-    // kick off initial index
-    indexDocs(options, function(){
-        // serve the app
-        app.listen(app.get('port'), app.get('bind'), function (){
-            console.log('[INFO] githubdocs running on host: http://' + app.get('bind') + ':' + app.get('port'));
-        });
+uglify(function() {
+  // kick off initial index
+  indexDocs(options, function() {
+    // serve the app
+    app.listen(app.get('port'), app.get('bind'), function() {
+      console.log(
+        '[INFO] githubdocs running on host: http://' +
+          app.get('bind') +
+          ':' +
+          app.get('port')
+      );
     });
+  });
 });
 
 // uglify assets
-function uglify(callback){
-    // uglify css
-    var cssfileContents = fs.readFileSync(path.join('public', 'stylesheets', 'style.css'), 'utf8');
-    var cssUglified = uglifycss.processString(cssfileContents);
-    fs.writeFileSync(path.join('public', 'stylesheets', 'style.min.css'), cssUglified, 'utf8');
-    
-    // uglify js
-    var rawCode = fs.readFileSync(path.join('public', 'javascripts', 'main.js'), 'utf8');
-    var jsUglified = uglifyjs.minify(rawCode, {
-        compress: {
-            dead_code: true,
-            global_defs: {
-                DEBUG: false
-            }
-        }
-    });
+function uglify(callback) {
+  // uglify css
+  var cssfileContents = fs.readFileSync(
+    path.join('public', 'stylesheets', 'style.css'),
+    'utf8'
+  );
+  var cssUglified = uglifycss.processString(cssfileContents);
+  fs.writeFileSync(
+    path.join('public', 'stylesheets', 'style.min.css'),
+    cssUglified,
+    'utf8'
+  );
 
-    fs.writeFileSync(path.join('public', 'javascripts', 'main.min.js'), jsUglified.code, 'utf8');
-    console.log('[INFO] Files minified');
-    callback();
-};
+  // uglify js
+  var rawCode = fs.readFileSync(
+    path.join('public', 'javascripts', 'main.js'),
+    'utf8'
+  );
+  var jsUglified = uglifyjs.minify(rawCode, {
+    compress: {
+      dead_code: true,
+      global_defs: {
+        DEBUG: false
+      }
+    }
+  });
+
+  fs.writeFileSync(
+    path.join('public', 'javascripts', 'main.min.js'),
+    jsUglified.code,
+    'utf8'
+  );
+  console.log('[INFO] Files minified');
+  callback();
+}
 
 // indexes the docs from Github. Is ran on initial start and the interval in config or default
-function indexDocs(options, callback){
-    request(options, function(error, response, body){
-        // loop our docs and insert into DB
-        async.each(JSON.parse(body), function(doc, callback) {
-            // only insert files, ignore dirs
-            if(doc.type === 'file'){
-                request.get(doc.download_url, function (error, response, body) {
-                    var md = require('markdown-it')();
-                    var renderedHtml = md.render(body);
-                    var $ = cheerio.load(renderedHtml);
-                    var docTitle = $('h1').first().text();
+function indexDocs(options, callback) {
+  console.log('HIT GITHUB', options);
+  request(options, function(error, response, body) {
+    // loop our docs and insert into DB
+    async.each(
+      JSON.parse(body),
+      function(doc, callback) {
+        // only insert files, ignore dirs
+        if (doc.type === 'file') {
+          request.get(doc.download_url, function(error, response, body) {
+            var md = require('markdown-it')();
+            var renderedHtml = md.render(body);
+            var $ = cheerio.load(renderedHtml);
+            var docTitle = $('h1')
+              .first()
+              .text();
 
-                    // set the docTitle
-                    if(docTitle.trim() === ''){
-                        docTitle = doc.name;
-                    }
-
-                    // set the docTitle for the DB
-                    doc.docTitle = docTitle;
-                    doc.docBody = renderedHtml;
-                    doc.docSlug = slugify(docTitle);
-                    
-                    // upsert doc
-                    db.findOne({docSlug: doc.docSlug}, function(err, existingDoc){
-                        db.update({docSlug: doc.docSlug}, doc, {upsert: true}, function (err, numReplaced, upsert) {
-                            var docId = typeof upsert === 'undefined' ? existingDoc._id : upsert._id;
-
-                            // build lunr index doc
-                            var indexDoc = {
-                                docTitle: docTitle,
-                                docBody: $.html(),
-                                id: docId
-                            }
-
-                            // add to lunr index
-                            lunrIndex.add(indexDoc);        
-                            callback();
-                        });
-                    });
-                });
+            // set the docTitle
+            if (docTitle.trim() === '') {
+              docTitle = doc.name;
             }
-        }, function(err) {
-            console.log('[INFO] Indexing complete');
-            // callback on optional callback
-            if(callback){
-                callback();
-            }
-        });
-    });
+
+            // set the docTitle for the DB
+            doc.docTitle = docTitle;
+            doc.docBody = renderedHtml;
+            doc.docSlug = slugify(docTitle);
+
+            // upsert doc
+            db.findOne({ docSlug: doc.docSlug }, function(err, existingDoc) {
+              db.update(
+                { docSlug: doc.docSlug },
+                doc,
+                { upsert: true },
+                function(err, numReplaced, upsert) {
+                  var docId =
+                    typeof upsert === 'undefined'
+                      ? existingDoc._id
+                      : upsert._id;
+
+                  // build lunr index doc
+                  var indexDoc = {
+                    docTitle: docTitle,
+                    docBody: $.html(),
+                    id: docId
+                  };
+
+                  // add to lunr index
+                  lunrIndex.add(indexDoc);
+                  callback();
+                }
+              );
+            });
+          });
+        }
+      },
+      function(err) {
+        console.log('[INFO] Indexing complete');
+        // callback on optional callback
+        if (callback) {
+          callback();
+        }
+      }
+    );
+  });
 }
 
 module.exports = app;
