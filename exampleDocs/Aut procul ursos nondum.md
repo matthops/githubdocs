@@ -15,7 +15,7 @@ repulsa aderis iacebas fluminis gentesque purpureae nupsi.
 Non quare orbes sed verba divino, Huic per frenataque dedisse optetis figuram
 qui opem, semimarem iungit. Sua conata suas!
 
-> *Refers nate* tremor ipse, venenata fuit in ferre nituntur pater nymphae
+> _Refers nate_ tremor ipse, venenata fuit in ferre nituntur pater nymphae
 > sudor. Cum per Celadon maris altera, et quae matre ultima claudere naufragus.
 > Cerambi debueram gnatis se cumque collaque dubie iuvit iniecit leonibus
 > silvis, hanc quis pater versavitque

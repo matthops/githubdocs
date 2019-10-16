@@ -4,12 +4,12 @@ The config file is named `config.json` and is located in the `config` directory 
 
 An example `config.json` file:
 
-``` javascript
+```javascript
 {
     "title": "githubdocs",
-    "githubRepoOwner": "mrvautin",
-    "githubRepoName": "githubdocs",
-    "githubRepoPath": "exampleDocs",
+    "githubRepoOwner": "steven-isbell",
+    "githubRepoName": "resources",
+    "githubRepoPath": "javascript",
     "updateDocsInterval": 300000,
     "addAnchors": true,
     "menuItems": [
@@ -25,12 +25,12 @@ An example `config.json` file:
 }
 ```
 
-|Setting|Description|
-|--- |--- |
-|`title`|Sets the value to be displayed at the top of the page|
-|`githubRepoOwner`|Owner/username of the Github repo|
-|`githubRepoName`|Name of the repo holding the Markdown files|
-|`githubRepoPath`|Directory relative to the root of the repo holding the Markdown files|
-|`updateDocsInterval`|Determines the interval (in milliseconds) to poll Github for updates to your Markdown files/docs|
-|`addAnchors`|Transforms `H1`, `H2`, `H3`, `H4`, `H5` info HTML anchor points for easy sharing|
-|`menuItems`|Not sure how useful this is. Set the menu items in the top navigation|
+| Setting              | Description                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------ |
+| `title`              | Sets the value to be displayed at the top of the page                                            |
+| `githubRepoOwner`    | Owner/username of the Github repo                                                                |
+| `githubRepoName`     | Name of the repo holding the Markdown files                                                      |
+| `githubRepoPath`     | Directory relative to the root of the repo holding the Markdown files                            |
+| `updateDocsInterval` | Determines the interval (in milliseconds) to poll Github for updates to your Markdown files/docs |
+| `addAnchors`         | Transforms `H1`, `H2`, `H3`, `H4`, `H5` info HTML anchor points for easy sharing                 |
+| `menuItems`          | Not sure how useful this is. Set the menu items in the top navigation                            |

@@ -34,16 +34,16 @@ nostra.
 
 Achillea miles incipiat. Erat **laceri inplet** legar praerupit latius.
 
-> Quaecumque habet, et edax *ad satis* maior queritur. Post super latet,
+> Quaecumque habet, et edax _ad satis_ maior queritur. Post super latet,
 > Narcissumque medio suo tempore gemit! Dum **tot**, suum eminet liquor omnibus
 > ipsos detrahit quid calcitrat adiuvet saevum.
 
 ## Deam hoc
 
-Aevi sonuit rapui Tethys sedit, legit iam *et* ut *forte umquam* Dianae
-prohibentque utque regem *mihi* ordine. Quaeque mihi undis, primusque dependent
+Aevi sonuit rapui Tethys sedit, legit iam _et_ ut _forte umquam_ Dianae
+prohibentque utque regem _mihi_ ordine. Quaeque mihi undis, primusque dependent
 in deus templa cornua? Sui movit crudelis Agenore gaudere **dedit**, humili
-tantorum *una est* stetimus esse illa. Cognovit prospexit lacertis eat avidis
+tantorum _una est_ stetimus esse illa. Cognovit prospexit lacertis eat avidis
 ferox.
 
     intellectualHalfPad = bitBarStick(link_web, white / jsp_platform(1), room +
@@ -55,4 +55,8 @@ ferox.
 
 His nacta opem, nubila madefacta retinacula ullum praesentior datque subit. Fas
 adsiduis felix strictumque crimen [in](http://et-tres.net/ferax.aspx), gelidae
-*dea circum* forsitan tegebat?
+_dea circum_ forsitan tegebat?
+
+## Practice Sites
+
+WORDS WORDS WORDS
