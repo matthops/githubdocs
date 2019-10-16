@@ -151,7 +151,6 @@ function uglify(callback) {
 
 // indexes the docs from Github. Is ran on initial start and the interval in config or default
 function indexDocs(options, callback) {
-  console.log('HIT GITHUB', options);
   request(options, function(error, response, body) {
     // loop our docs and insert into DB
     async.each(
