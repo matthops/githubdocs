@@ -1,8 +1,8 @@
 {
   "title": "DevResources",
-  "githubRepoOwner": "matthops",
-  "githubRepoName": "githubdocs",
-  "githubRepoPath": "exampleDocs",
+  "githubRepoOwner": "steven-isbell",
+  "githubRepoName": "resources",
+  "githubRepoPath": "javascript",
   "updateDocsInterval": 300000,
   "menuItems": [
     {
